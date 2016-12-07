@@ -44,7 +44,16 @@ request(dronesSettings, function (error, response, dronesString) {
         });
         var filesSettings = new Settings("/files?drone_id.is=" + drone.id + "&format=json");
         request(filesSettings, function (error, response, filesString) {
-            console.log(filesString);
+            var files = JSON.parse(filesString);
+            console.log(files);
+            console.log("=================================================================");
+            files.forEach(function (file) {
+                var fileSettings = new Settings("/files/" + file.id + "?format=json");
+                request(fileSettings, function (error, response, fileString) {
+                    var file = JSON.parse(fileString);
+                    console.log(file);
+                });
+            });
         });
     });
 });

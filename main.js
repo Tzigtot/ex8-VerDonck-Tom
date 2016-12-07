@@ -17,9 +17,15 @@ var Settings = function (url) {
 };
 
 var Drone = function (id, name, mac) {
-	this._id = id
+	this._id = id;
 	this.name = name;
 	this.mac = mac;
+};
+
+var File = function (id, first_record, last_record) {
+    this.id = id;
+    this.first_record = first_record;
+    this.last_record = last_record;
 };
 
 var dronesSettings = new Settings("/drones?format=json");

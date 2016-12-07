@@ -30,7 +30,7 @@ var File = function (id, first_record, last_record) {
 
 var dronesSettings = new Settings("/drones?format=json");
 
-dal.clearDrone();
+// dal.clearDrone();
 
 request(dronesSettings, function (error, response, dronesString) {
     var drones = JSON.parse(dronesString);
@@ -40,18 +40,19 @@ request(dronesSettings, function (error, response, dronesString) {
         var droneSettings = new Settings("/drones/" + drone.id + "?format=json");
         request(droneSettings, function (error, response, droneString) {
             var drone = JSON.parse(droneString);
-            dal.insertDrone(new Drone(drone.id, drone.name, drone.mac_address));
+           // dal.insertDrone(new Drone(drone.id, drone.name, drone.mac_address));
         });
         var filesSettings = new Settings("/files?drone_id.is=" + drone.id + "&format=json");
         request(filesSettings, function (error, response, filesString) {
             var files = JSON.parse(filesString);
-            console.log(files);
+            console.log(filesString);
             console.log("=================================================================");
             files.forEach(function (file) {
                 var fileSettings = new Settings("/files/" + file.id + "?format=json");
                 request(fileSettings, function (error, response, fileString) {
                     var file = JSON.parse(fileString);
-                    console.log(file);
+                    console.log(fileString);
+                    console.log("=================================================================");
                 });
             });
         });

@@ -54,6 +54,12 @@ request(dronesSettings, function (error, response, dronesString) {
                     console.log(fileString);
                     console.log("=================================================================");
                 });
+                var contentSettings = new Settings("/files/" + file.id + "/contents?format=json");
+                request(contentSettings, function (error, response, contentString) {
+                   var content = JSON.parse(contentString);
+                   console.log(contentString);
+                   console.log("=================================================================");
+                });
             });
         });
     });

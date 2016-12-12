@@ -28,14 +28,21 @@ var File = function (id, first_record, last_record) {
     this.last_record = last_record;
 };
 
+var Content = function(id, mac, datetime, rssi) {
+  this.id = id;
+  this.mac = mac;
+  this.datetime = datetime;
+  this.rssi = rssi;
+};
+
 var dronesSettings = new Settings("/drones?format=json");
 
 // dal.clearDrone();
 
 request(dronesSettings, function (error, response, dronesString) {
     var drones = JSON.parse(dronesString);
-    console.log(drones);
-    console.log("***************************************************************************");
+    //console.log(drones);
+    //console.log("***************************************************************************");
     drones.forEach(function (drone) {
         var droneSettings = new Settings("/drones/" + drone.id + "?format=json");
         request(droneSettings, function (error, response, droneString) {
@@ -45,16 +52,16 @@ request(dronesSettings, function (error, response, dronesString) {
         var filesSettings = new Settings("/files?drone_id.is=" + drone.id + "&format=json");
         request(filesSettings, function (error, response, filesString) {
             var files = JSON.parse(filesString);
-            console.log(filesString);
+            //console.log(filesString);
             console.log("=================================================================");
             files.forEach(function (file) {
                 var fileSettings = new Settings("/files/" + file.id + "?format=json");
                 request(fileSettings, function (error, response, fileString) {
                     var file = JSON.parse(fileString);
-                    console.log(fileString);
-                    console.log("=================================================================");
+                    //console.log(fileString);
+                    //console.log("=================================================================");
                 });
-                var contentSettings = new Settings("/files/" + file.id + "/contents?format=json");
+                var contentSettings = new Settings("/files/" + file.id + "/contents?format=json&embed");
                 request(contentSettings, function (error, response, contentString) {
                    var content = JSON.parse(contentString);
                    console.log(contentString);

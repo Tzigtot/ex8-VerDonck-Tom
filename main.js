@@ -38,6 +38,8 @@ var Content = function(id, mac, datetime, rssi) {
 var dronesSettings = new Settings("/drones?format=json");
 
 // dal.clearDrone();
+// dal.clearFile();
+// dal.clearContent();
 
 request(dronesSettings, function (error, response, dronesString) {
     var drones = JSON.parse(dronesString);
@@ -58,12 +60,14 @@ request(dronesSettings, function (error, response, dronesString) {
                 var fileSettings = new Settings("/files/" + file.id + "?format=json");
                 request(fileSettings, function (error, response, fileString) {
                     var file = JSON.parse(fileString);
+                     // dal.insertFile(new File(file.id, file.first_record, file.last_record));
                     //console.log(fileString);
                     //console.log("=================================================================");
                 });
                 var contentSettings = new Settings("/files/" + file.id + "/contents?format=json&embed");
                 request(contentSettings, function (error, response, contentString) {
                    var content = JSON.parse(contentString);
+                    // dal.insertContent(new Content(content.id, content.mac_address, content.datetime, content.rssi));
                    console.log(contentString);
                    console.log("=================================================================");
                 });

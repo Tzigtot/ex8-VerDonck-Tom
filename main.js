@@ -49,7 +49,7 @@ request(dronesSettings, function (error, response, dronesString) {
             var drone = JSON.parse(droneString);
            // dal.insertDrone(new Drone(drone.id, drone.name, drone.mac_address));
         });
-        var filesSettings = new Settings("/files?drone_id.is=" + drone.id + "&format=json");
+        var filesSettings = new Settings("/files?drone_id.is=" + drone.id + "&format=json&date_loaded.greaterOrEqual=2016-12-10T00:00:00");
         request(filesSettings, function (error, response, filesString) {
             var files = JSON.parse(filesString);
             //console.log(filesString);
